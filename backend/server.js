@@ -1,7 +1,8 @@
 import "dotenv/config"
-import express,{ Router } from "express"
+import express from "express"
 import cors from "cors"
 import apiRouter from "./routes/api.route.js"
+import { errorHandler } from "./middleware/middleError.js"
 
 
 const app = express()
@@ -10,6 +11,11 @@ app.use(cors())
 
 app.use('/api', apiRouter)
 
+app.use('/', (req, res) => {
+    res.status(404).send("Page not found")
+})
+
+app.use(errorHandler)
 
 app.listen(process.env.PORT, () => {
     console.log("The server is running and listening...")

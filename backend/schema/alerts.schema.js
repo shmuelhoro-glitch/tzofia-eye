@@ -13,3 +13,16 @@ const Alert = z.object({
 
 
 export default Alert
+
+
+
+
+export const UpdateAlert = z.object({
+    displayName: z.string().optional(),
+    description: z.string().min(5).optional(),
+    priority: z.enum(["Low", "Medium", "High", "Critical"]).optional() ,
+    arena: z.enum(["North", "South", "Center"]).optional(),
+    status: z.enum(["Active", "Handled"]).optional(),
+    lon: z.number().optional(),
+    lat: z.number().optional()
+}).strict()

@@ -1,5 +1,6 @@
 import { ObjectId } from "mongodb";
 import { getColl } from "../db/db.js";
+import { object } from "zod";
 
 export async function getAllAlerts() {
     const coll = await getColl()
@@ -32,6 +33,6 @@ export async function deleteAlert(alertsId) {
 export async function updateAlert(alertsId,dataForUpdate) {
     const coll = await getColl()
     const _id = new ObjectId(alertsId)
-    const updated = await coll.findOneAndUpdate({_id}, {...dataForUpdate})
+    const updated = await coll.findOneAndUpdate({_id}, {$set:{...dataForUpdate}})
     return updated
 }
