@@ -33,7 +33,7 @@ export async function createNewAlert(req, res) {
     const create = await insertNewAlert(body.data)
     res.status(201).send(create.toJSON())
 } catch (err) {
-    return res.status(400).send(err.message || "Invalid request")
+    return res.status(400).send("Invalid request")
 }
 
 }
@@ -52,6 +52,9 @@ export async function deleteAlertById(req, res) {
 export async function updateAlertById(req, res) {
     const alertId = req.params.id
     const body = UpdateAlert.parse(req.body)
+    if (!body){
+        return res.status(400).send("Invalid request")
+    }
     const update = await updateAlert(alertId, body)
     if (!update || !update._id){
         return res.status(500).send("Error updating data")
