@@ -1,29 +1,40 @@
-import { useEffect, useState } from 'react'
-import AlertsMap from './components/AlertsMap'
-import type { MapAlert, AlertsMapProps } from './components/AlertsMap'
-import {getAllAlerts} from "../services/api.service"
-import './App.css'
-
-
+import { useEffect, useState } from "react";
+import AlertsMap from "./components/AlertsMap";
+import type { MapAlert, AlertsMapProps } from "./components/AlertsMap";
+import { locationForMap } from "../services/api.service";
+import "./App.css";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import AlertsList from "./components/AlertsList";
+import CreateNew from "./components/CreateNew";
 
 function App() {
-
-  const [alerts, setAlerts] = useState<MapAlert[]>([])
+  const [allLocation, setAllLocation] = useState<MapAlert[]>([]);
 
   useEffect(() => {
-    const loadAlerts = async () => {
-      const data = await getAllAlerts()
-      setAlerts(data)
+    async function importLocations() {
+      const locations: any = await locationForMap();
+      setAllLocation(locations);
     }
-    loadAlerts()
-  },[])
-
+    importLocations();
+  }, []);
 
   return (
-    <>
-     <AlertsMap alerts={alerts.map((alert) => ({...alert, lon: alert.lon, lat: alert.lat}))}/>
-    </>
-  )
+    <div className="app">
+      <header>
+        <Header />
+      </header>
+      <main>
+        <AlertsMap alerts={allLocation.map((a) => ({ ...a, lon: a.lon, lat: a.lat }))} />
+        <AlertsList />
+        <CreateNew />
+      </main>
+      <footer>
+        <Footer />
+      </footer>
+    </div>
+  );
 }
 
-export default App
+export default App;
+

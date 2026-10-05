@@ -1,0 +1,10 @@
+
+
+.create-new {
+    display: flex;
+    flex-direction: column;
+    background-color: burlywood;
+    width: 40%;
+    justify-content: center;
+    /* align-items: center; */
+}
