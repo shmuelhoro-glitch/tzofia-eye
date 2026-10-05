@@ -11,3 +11,8 @@ export async function getColl() {
     return coll
 }
 
+
+export async function disconnect() {
+    await client.close()
+    return
+}
