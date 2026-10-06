@@ -7,14 +7,10 @@ body {
     flex-direction: column;
 }
 
-main {
-    margin: 15px 10%;
-    /* display: flex; */
 
-}
 
 header {
-    height: 250px;
+    height: 100px;
     background-color: rgb(156, 134, 134);
 }
 

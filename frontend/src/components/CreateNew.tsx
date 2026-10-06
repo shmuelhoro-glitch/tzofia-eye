@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import "./style/createNew.css";
-import type { Priority, Arena, Status } from "../../services/api.service";
+import { type Priority, type Arena, type Status, createNewAlert } from "../services/api.service";
 
 const CreateNew = () => {
   const [name, setName] = useState<string>("");
@@ -11,8 +11,12 @@ const CreateNew = () => {
   const [lon, setLon] = useState<number>();
   const [lat, setLat] = useState<number>();
 
-  const handleSubmit = () => {
+  const arenaRef = useRef("Center");
 
+  const handleSubmit = async () => {
+    const data = { displayName: name, description, priority, arena, status, lon, lat };
+    const send = await createNewAlert(data);
+    return;
   };
 
   return (
@@ -35,28 +39,34 @@ const CreateNew = () => {
         value={description}
         onChange={(e) => setDescription(e.target.value)}
       />
-    <label htmlFor="priority">בחר רמת דחיפות</label>
-      <select name="priority" id="priority">
+      <label htmlFor="priority">בחר רמת דחיפות</label>
+      <select name="priority" id="priority" onSelectCapture={(e) => setPriority(e.currentTarget.value)}>
         <option value="Low">Low</option>
         <option value="Medium">Medium</option>
         <option value="High">High</option>
         <option value="Critical">Critical</option>
       </select>
 
-    <label htmlFor="arena">באיזה אזור?</label>
-      <select name="arena" id="arena">
-        <option value="North">North</option>
-        <option value="South">South</option>
-        <option value="Center">Center</option>
+      <label htmlFor="arena">באיזה אזור?</label>
+      <select name="arena" id="arena" onSelect={(e) => setArena(e.currentTarget.id)}>
+        <option value="North" id="North">
+          North
+        </option>
+        <option value="South" id="South">
+          South
+        </option>
+        <option value="Center" id="Center">
+          Center
+        </option>
       </select>
 
-        <label htmlFor="status">בחר סטטוס</label>
+      <label htmlFor="status">בחר סטטוס</label>
       <select name="status" id="status">
         <option value="Active">Active</option>
         <option value="Handled">Handled</option>
       </select>
 
-        <label htmlFor="lon">קו אורך</label>
+      <label htmlFor="lon">קו אורך</label>
       <input
         type="number"
         name="lon"

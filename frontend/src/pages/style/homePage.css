@@ -1,0 +1,24 @@
+
+
+.map-and-list {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    padding: 20px;
+    margin: 10px;
+
+
+    
+}
+
+.map {
+    flex: auto;
+    width: 60%;
+    padding-left: 0%;
+}
+
+.alerts-list {
+    width: 30%;
+    padding-right: 0%;
+    background-color: antiquewhite;
+}

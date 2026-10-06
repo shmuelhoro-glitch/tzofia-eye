@@ -1,40 +1,47 @@
 import { useEffect, useState } from "react";
-import AlertsMap from "./components/AlertsMap";
 import type { MapAlert, AlertsMapProps } from "./components/AlertsMap";
-import { locationForMap } from "../services/api.service";
+import { getAllAlert, locationForMap, type Alert } from "./services/alerts.service";
 import "./App.css";
+import { Outlet, Route, Routes } from "react-router";
+import LoginPage from "./pages/LoginPage";
+import HomePage from "./pages/HomePage";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import AlertsList from "./components/AlertsList";
-import CreateNew from "./components/CreateNew";
+import AdminPage from "./pages/AdminPage";
 
 function App() {
-  const [allLocation, setAllLocation] = useState<MapAlert[]>([]);
+  // const [allLocation, setAllLocation] = useState<MapAlert[]>([]);
+  // const [userData, setUserData] = useState()
+
+  // useEffect(() => {
+  //   async function importLocations() {
+  //     const locations: any = await locationForMap();
+  //     setAllLocation(locations);
+  //   }
+  //   importLocations();
+  // }, []);
+
+    const [alerts, setAlerts] = useState<Alert[]>([]);
 
   useEffect(() => {
-    async function importLocations() {
-      const locations: any = await locationForMap();
-      setAllLocation(locations);
-    }
-    importLocations();
+    const importList = async () => {
+      const data = await getAllAlert();
+      setAlerts(data);
+    };
+    importList();
   }, []);
 
   return (
-    <div className="app">
-      <header>
+    <>
         <Header />
-      </header>
-      <main>
-        <AlertsMap alerts={allLocation.map((a) => ({ ...a, lon: a.lon, lat: a.lat }))} />
-        <AlertsList />
-        <CreateNew />
-      </main>
-      <footer>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/login" element={<LoginPage />}/>
+          <Route path="/admin" element={<AdminPage />}/>
+        </Routes>
         <Footer />
-      </footer>
-    </div>
+    </>
   );
 }
 
 export default App;
-

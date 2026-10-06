@@ -9,6 +9,10 @@ export async function getAll(req, res) {
         const err = errorStructure(404, "Empty list")
         throw err
     }
+    if (req.user.assignedArena == "arena_user") {
+        const specArena = result.filter(e => e.arena == req.user.assignedArena)
+        return res.send(specArena)
+    }
     res.send(result)
 }
 
@@ -20,7 +24,14 @@ export async function getById(req, res) {
         const err = errorStructure(404, "not found")
         throw err 
     }
-    res.send(result)
+    if (req.user.role == "arena_user") {
+        if (result.arena == req.user.assignedArena)
+            return res.send(result)
+        else {
+            return res.status(403).send("You do not have permission.")
+        }
+    }
+    return res.send(result)
 }
 
 

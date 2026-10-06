@@ -1,7 +1,10 @@
 import { Router } from "express";
 import { createNewAlert, deleteAlertById, getAll, getById, updateAlertById } from "../controller/alerts.controller.js";
+import { authentication } from "../middleware/authentication.middle.js";
 
 const router = Router()
+
+router.use(authentication)
 
 router.get('/', getAll)
 

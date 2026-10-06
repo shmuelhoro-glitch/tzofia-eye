@@ -9,8 +9,8 @@ export async function authentication(req, res, next) {
         err.status = 401
         next(err)
     }
-    const token = authorization.split(" ")[1]
     try {
+        const token = authorization.split(" ")[1]
         const check = jwt.verify(token, process.env.SECRET_JWT)
         req.user = check
         next()
