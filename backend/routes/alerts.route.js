@@ -3,15 +3,15 @@ import { createNewAlert, deleteAlertById, getAll, getById, updateAlertById } fro
 
 const router = Router()
 
-router.get('/alerts', getAll)
+router.get('/', getAll)
 
-router.get('/alerts/:id', getById)
+router.get('/:id', getById)
 
-router.post('/alerts', createNewAlert)
+router.post('/', createNewAlert)
 
-router.delete('/alerts/:id', deleteAlertById)
+router.delete('/:id', deleteAlertById)
 
-router.put('/alerts/:id', updateAlertById)
+router.put('/:id', updateAlertById)
 
 
 

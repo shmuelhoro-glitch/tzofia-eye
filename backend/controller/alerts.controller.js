@@ -52,7 +52,7 @@ export async function deleteAlertById(req, res) {
 export async function updateAlertById(req, res) {
     const alertId = req.params.id
     const body = UpdateAlert.parse(req.body)
-    if (!body){
+    if (Object.entries().length == 0){
         return res.status(400).send("Invalid request")
     }
     const update = await updateAlert(alertId, body)
