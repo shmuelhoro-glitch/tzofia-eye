@@ -20,3 +20,9 @@ export async function getUserByEmail(email) {
     const result = await coll.findOne({email})
     return result
 }
+
+export async function deleteUserById(id) {
+    const coll = await getColl(COLL_NAME)
+    const result = await coll.findOneAndDelete({_id})
+    return result
+}
